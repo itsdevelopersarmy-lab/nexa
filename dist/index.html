@@ -4,11 +4,77 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Google AI Studio App</title>
+
+    <style>
+      /* Fullscreen Loader */
+      #app-loader {
+        position: fixed;
+        inset: 0;
+        background: #0f172a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        z-index: 999999;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Spinner */
+      .spinner {
+        width: 70px;
+        height: 70px;
+        border: 6px solid rgba(255,255,255,0.15);
+        border-top: 6px solid #38bdf8;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      /* Text */
+      .loading-text {
+        margin-top: 20px;
+        color: white;
+        font-size: 18px;
+        letter-spacing: 1px;
+      }
+
+      @keyframes spin {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Hide loader when app loaded */
+      .loaded #app-loader {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s ease;
+      }
+    </style>
+
     <script type="module" crossorigin src="/assets/index-DPeLIoM9.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Cme6YIwk.css">
   </head>
+
   <body>
+    <!-- Loader -->
+    <div id="app-loader">
+      <div class="spinner"></div>
+      <div class="loading-text">Starting AI Engine...</div>
+    </div>
+
+    <!-- React Root -->
     <div id="root"></div>
+
+    <script>
+      // Remove loader after page fully loaded
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+
+        setTimeout(() => {
+          const loader = document.getElementById("app-loader");
+          if (loader) loader.remove();
+        }, 500);
+      });
+    </script>
   </body>
 </html>
-
